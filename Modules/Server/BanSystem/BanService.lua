@@ -1,3 +1,5 @@
+-- @module
+
 local dataStore = nil
 local http = game:GetService("HttpService")
 local players = game:GetService("Players")
