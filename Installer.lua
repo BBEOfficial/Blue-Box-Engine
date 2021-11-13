@@ -254,7 +254,7 @@ MAINFOLDER.Name = "BlueBoxEngine"
 MAINFOLDER.Parent = game.ServerScriptService
 
 local folders = Main.GenerateFileSystem(MAINFOLDER)
-local paths = Main.GeneratePaths("https://raw.githubusercontent.com/JakeyWasTaken/BlueBoxEngine/main/")
+local paths = Main.GeneratePaths("https://raw.githubusercontent.com/BBEOfficial/Blue-Box-Engine/main/")
 local scripts = Main.DownloadScripts(folders,paths)
 Main.PushScriptParents(scripts)
 
