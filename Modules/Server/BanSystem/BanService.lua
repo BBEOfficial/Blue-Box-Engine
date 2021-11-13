@@ -11,21 +11,24 @@ local webhooks = {
 	["Audit"] = "https://discord.com/api/webhooks/801209772371214396/Mv3NGpqkFSiFCdTP3od5oqP03_FnG5irYsj8HOURJ2AVFC4Ml_rYPpWZa3yz-AtA81hj";
 }
 
+local DataStoreKey = "keykey"
+local defaultBanLength = 31536000
+
 
 print("loading ban service")
-warn("WARNING: PLEASE USE THIS DATASTORE WITH THIS, https://pastebin.com/UngNRfSy (Put the code in a module script. and then go into ban service and set the value of DS to the module)")
 
-if not script.DS.Value then
-	warn("Expected This DataStore, https://pastebin.com/UngNRfSy (Put the code in a module script. and then go into ban service and set the value of DS to the module)")
-	return
+dataStore = nil
+
+for _,v in pairs(game:GetDescendants()) do
+	if v:IsA("ModuleScript") and v.Name == "DataStore" then
+		dataStore = require(v)
+	end
 end
 
-if not script.DS.Value:IsA("ModuleScript") then
-	warn("Expected module script, https://pastebin.com/UngNRfSy (Put the code in a module script. and then go into ban service and set the value of DS to the module)")
+if dataStore == nil then
+	warn("Missing data store")
 	return
 end
-
-dataStore = require(script.DS.Value)
 
 function banTimeCalc(banInfo)
 	local banLen = banInfo["banLength"]
@@ -172,7 +175,7 @@ end
 
 function module.ban(...)
 	local plrUid,length,reason,executor = table.unpack(...)
-	local dataKey = script:GetAttribute("datastoreKey")
+	local dataKey = DataStoreKey
 	local plrName = nil
 	
 	local s,e = pcall(function()
@@ -238,7 +241,7 @@ end
 
 function module.unban(...)
 	local plrUid,executor = table.unpack(...)
-	local dataKey = script:GetAttribute("datastoreKey")
+	local dataKey =	DataStoreKey
 	local plrName = nil
 	
 	local s,e = pcall(function()
