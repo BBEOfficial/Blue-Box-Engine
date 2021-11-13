@@ -213,6 +213,39 @@ do
 				print("Downloaded "..scriptName.." Type: Module Script")
 			end
 			
+			if string.find(scriptData,"@script") then
+				local S = Instance.new("Script")
+				S.Name = string.sub(scriptName,1,#scriptName-4)
+				S.Source = scriptData
+				for _,v in pairs(folders) do
+					if v.Name == scriptParentName then
+						S.Parent = v
+						break
+					end
+				end
+				Script = S
+				print("Downloaded "..scriptName.." Type: Script")
+			end
+			
+			if string.find(scriptData,"@localscript") then
+				local S = Instance.new("LocalScript")
+				S.Name = string.sub(scriptName,1,#scriptName-4)
+				S.Source = scriptData
+				for _,v in pairs(folders) do
+					if v.Name == scriptParentName then
+						S.Parent = v
+						break
+					end
+				end
+				Script = S
+				print("Downloaded "..scriptName.." Type: Local Script")
+			end
+			
+			if string.find(scriptData,"@disabled") then
+				Script.Disabled = true
+				print("Disabled script "..scriptName)
+			end
+			
 			table.insert(SCRIPTS,{Script,scriptData})
 		end
 		
